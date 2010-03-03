@@ -30,8 +30,8 @@
 # POSSIBILITY OF SUCH DAMAGES.
 
 This is a simple exporter for Blender (www.blender.org) a 3D modelling suite.
-The exporter can be installed by copying it into your ./blender/scripts folder
-in your home directory(linux).
+The exporter can be installed by copying cljexporter.py into your 
+.blender/scripts folder in your home directory(linux).
 
 The exporter will create a simple Clojure (www.clojure.org) datastructure.
 A map of the the following form ( things in <> brackets will be replaced
