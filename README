@@ -1,0 +1,72 @@
+#   Copyright (c) Tobias Krumholz. All rights reserved.
+#   The use and distribution terms for this software are covered by the
+#   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php).
+#   By using this software in any fashion, you are agreeing to be bound by
+#   the terms of this license.
+#   You must not remove this notice, or any other, from this
+#   software.
+#
+# NO WARRANTY
+#
+# EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS PROVIDED ON AN "AS IS"
+# BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED 
+# INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, 
+# MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Each Recipient is solely responsible 
+# for determining the appropriateness of using and distributing the Program and assumes 
+# all risks associated with its exercise of rights under this Agreement , including but 
+# not limited to the risks and costs of program errors, compliance with applicable laws, 
+# damage to or loss of data, programs or equipment, and unavailability or interruption of 
+# operations.
+#
+#
+# DISCLAIMER OF LIABILITY
+#
+# EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT NOR ANY CONTRIBUTORS
+# SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+# CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND 
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE 
+# PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGES.
+
+This is a simple exporter for Blender (www.blender.org) a 3D modelling suite.
+The exporter can be installed by copying it into your ./blender/scripts folder
+in your home directory(linux).
+
+The exporter will create a simple Clojure (www.clojure.org) datastructure.
+A map of the the following form ( things in <> brackets will be replaced
+by whatever your coresponding blender objects properties are. e.g. 
+<name of object> will be the name of your object):
+
+{:name <name of object>
+ :textured? <is the object textured>
+ :materials <all materials of the object>
+ :faces <all faces of the object>}
+
+:materials and :faces will both be a Clojure vector containing materials/faces
+of the following form:
+The :materials look like:
+{:<name of the material>
+ {:ambient [<red value> <blue vale> <green value> <alpha value>]
+  :diffuse [<red value> <blue vale> <green value> <alpha value>]
+  :specular [<red value> <blue vale> <green value> <alpha value>]
+  :emission [0 0 0 0]
+  :shininess <blender hardness value divided by 4>}}
+
+The :faces look like:
+{:material :<name of a material>
+ :vertices [{:normal [<x><y><z>] :vertex [<x><y><z>] :tex-coords [<u><v>]}
+            <... more vertices (usually 3 if you have a triangle)>]}
+
+Thats basically it. A list of all faces and every face will have the name of
+the material thats on the face and a list of its vertices.
+
+Wouldn't indexed geometry save a lot of memory?
+Yes. But it is also not for everyone. You can simple load this datastructure 
+form a file with the Clojure command (def myobject (load-file <filename>)).
+
+Currently only materials are supported. Texture uv coordinates will be
+exported but NOT the textures. Textures will be supported in the future.
+
+It a NOT to soon future i will also export keyframed animation.
+In examples you can find an example of an exported cube with to materials.
