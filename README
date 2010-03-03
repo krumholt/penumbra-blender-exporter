@@ -68,5 +68,5 @@ form a file with the Clojure command (def myobject (load-file <filename>)).
 Currently only materials are supported. Texture uv coordinates will be
 exported but NOT the textures. Textures will be supported in the future.
 
-It a NOT to soon future i will also export keyframed animation.
-In examples you can find an example of an exported cube with to materials.
+In a NOT to soon future i will also export keyframed animation.
+In examples you can find an example of an exported cube with two materials.
